@@ -1,63 +1,56 @@
 #include<stdio.h>
-int stack[100],n,top,i;
-void push(int x)
+#define MAXSIZE 50
+int arr[MAXSIZE],index=0,nofelements;
+void append(int data)
 {
-    if(top>=n-1)
-    {
-        printf("\n STACK is over flow");
-    }
-    else
-    {
-        top++;
-        stack[top]=x;
-        printf("\n element pushed into stack:%d",x);
-    }
+arr[index] = data;
+index++;
+nofelements++;
 }
-void pop()
+void traverse()
 {
-    if(top<=-1)
-    {
-        printf("\n Stack is under flow");
-    }
-    else
-    {
-        printf("\n The popped elements is %d",stack[top]);
-        stack[top] = 0;
-        top--;
-    }
+for(index=0;index<nofelements;index++)
+{
+printf("%d->",arr[index]);
 }
-void display()
+}
+void prepend(int data)
 {
-    if(top>=0)
-    {
-        printf("\n The elements in STACK: \n");
-        for(i=top; i>=0; i--)
-            printf("%d \n",stack[i]);
-    }
-    else
-    {
-        printf("\n The STACK is empty");
-    }
+int i;
+for(i=index;i>0;i--)
+{
+arr[i] = arr[i-1];
+}
+arr[0] = data;
+index++;
+nofelements++;
+}
+void insert(int data,int pos)
+{
+int i;
+for(i=index;i>pos;i--)
+{
+arr[i] = arr[i-1];
+}
+arr[pos] = data;
+index++;
+nofelements++;
+}
+int getnofelements()
+{
+return nofelements;
+} int main()
+{
+int n;
+append(5);
+append(6);
+append(7);
+prepend(8);
+prepend(9);
+insert(4,2);
+traverse();
+n = getnofelements();
+printf("nof elments:%d",n);
+return 0;
+}
    
-}
-
-int main()
-{
-	top = -1;
-	n = 5;
-	push(10);
-	push(20);
-	push(30);
-	push(40);
-	push(50);
-	push(60);
-
-	display();
-	pop();
-	pop();
-	pop();
-	pop();
-	pop();
-	pop();
-	pop();
-}
